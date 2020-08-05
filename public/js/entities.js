@@ -2,7 +2,7 @@ import Entity from './modules/Entity.js';
 import Go from './modules/traits/Go.js';
 import Jump from './modules/traits/Jump.js';
 import Velocity from './modules/traits/Velocity.js';
-import {loadMarioSprite} from './sprites.js';
+import {loadMarioSprite} from './sprites/sprites.js';
 
 export function createMario() {
     return loadMarioSprite()
@@ -15,7 +15,7 @@ export function createMario() {
         //mario.addTrait(new Velocity());
 
         mario.draw = function drawMario(context) {
-            sprite.draw('idle', context, this.pos.x, this.pos.y);
+            sprite.draw('idle', context, 0, 0);
         }
 
         return mario;
