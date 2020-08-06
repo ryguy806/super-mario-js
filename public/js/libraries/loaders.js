@@ -1,6 +1,7 @@
-import Level from './modules/Level.js';
-import SpriteSheet from './modules/SpriteSheet.js';
+import Level from '../modules/Level.js';
+import SpriteSheet from '../modules/SpriteSheet.js';
 import {createBackgroundLayer, createSpriteLayer} from './layers.js';
+import {createAnim} from './animations.js';
 
 export function loadImage(url) {
     return new Promise(resolve => {
@@ -50,7 +51,7 @@ function createTiles(level, backgrounds) {
     });
 }
 
-export  function loadSpriteSheet(name) {
+export function loadSpriteSheet(name) {
     return loadJSON(`/sprites/${name}.json`)
     .then(sheetSpec => Promise.all([
         sheetSpec,
@@ -62,7 +63,7 @@ export  function loadSpriteSheet(name) {
             sheetSpec.tileW,
             sheetSpec.tileH);
 
-        if(sheetSpec.tiles) {
+        if (sheetSpec.tiles) {
             sheetSpec.tiles.forEach(tileSpec => {
                 sprites.defineTile(
                     tileSpec.name,
@@ -71,9 +72,16 @@ export  function loadSpriteSheet(name) {
             });
         }
 
-        if(sheetSpec.frames) {
+        if (sheetSpec.frames) {
             sheetSpec.frames.forEach(frameSpec => {
                 sprites.define(frameSpec.name, ...frameSpec.rect);
+            });
+        }
+
+        if (sheetSpec.animations) {
+            sheetSpec.animations.forEach(animSpec => {
+                const animation = createAnim(animSpec.frames, animSpec.frameLen);
+                sprites.defineAnim(animSpec.name, animation);
             });
         }
 

@@ -1,4 +1,4 @@
-import Keyboard from './modules/KeyboardState.js';
+import Keyboard from '../modules/KeyboardState.js';
 
 export function setupKeyboard(entity) {
     const input = new Keyboard();
