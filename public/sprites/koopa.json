@@ -4,18 +4,19 @@
     "frames": [
         {
             "name": "walk-1",
-            "rect": [296, 206, 16, 16]
+            "rect": [296, 206, 16, 24]
         },
         {
-            "name": "walk-1",
-            "rect": [315, 206, 16, 16]
+            "name": "walk-2",
+            "rect": [315, 206, 16, 24]
         }
     ],
+
     "animations": [
         {
             "name": "walk",
             "frameLen": 0.15,
-            "frames":[
+            "frames": [
                 "walk-1",
                 "walk-2"
             ]
