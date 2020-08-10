@@ -3,24 +3,25 @@ import Go from '../../modules/traits/Go.js';
 import Jump from '../../modules/traits/Jump.js';
 import {loadSpriteSheet} from '../loaders.js';
 
-const FAST_DRAG = 1/5000;
 const SLOW_DRAG = 1/1000;
+const FAST_DRAG = 1/5000;
 
 export function loadMario() {
     return loadSpriteSheet('mario')
     .then(createMarioFactory);
 }
 
-function createMarioFactory(sprite){
-
+function createMarioFactory(sprite) {
     const runAnim = sprite.animations.get('run');
+
     function routeFrame(mario) {
-        if(mario.jump.falling){
+        if (mario.jump.falling) {
             return 'jump';
         }
+
         if (mario.go.distance > 0) {
-            if((mario.vel.x > 0 && mario.go.dir < 0) || (mario.vel.x < 0 && mario.go.dir > 0)) {
-                return "break";
+            if ((mario.vel.x > 0 && mario.go.dir < 0) || (mario.vel.x < 0 && mario.go.dir > 0)) {
+                return 'break';
             }
 
             return runAnim(mario.go.distance);

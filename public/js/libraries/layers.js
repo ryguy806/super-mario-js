@@ -1,4 +1,4 @@
-import TileResolver from "../collision/TileResolver.js";
+import TileResolver from '../collision/TileResolver.js';
 
 export function createBackgroundLayer(level, tiles, sprites) {
     const resolver = new TileResolver(tiles);
@@ -8,7 +8,7 @@ export function createBackgroundLayer(level, tiles, sprites) {
     buffer.height = 240;
 
     const context = buffer.getContext('2d');
- 
+
     function redraw(startIndex, endIndex)  {
         context.clearRect(0, 0, buffer.width, buffer.height);
 

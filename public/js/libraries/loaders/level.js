@@ -1,7 +1,7 @@
-import {loadJSON, loadSpriteSheet} from '../loaders.js';
+import {Matrix} from '../../modules/Vec2.js';
 import Level from '../../modules/Level.js';
 import {createBackgroundLayer, createSpriteLayer} from '../layers.js';
-import {Matrix} from '../../modules/Vec2.js';   
+import {loadJSON, loadSpriteSheet} from '../loaders.js';
 
 export function loadLevel(name) {
     return loadJSON(`/levels/${name}.json`)
@@ -19,7 +19,7 @@ export function loadLevel(name) {
         level.setCollisionGrid(collisionGrid);
 
         levelSpec.layers.forEach(layer => {
-            const backgroundGrid = createBackgroundGrid(layer. tiles, levelSpec.patterns);
+            const backgroundGrid = createBackgroundGrid(layer.tiles, levelSpec.patterns);
             const backgroundLayer = createBackgroundLayer(level, backgroundGrid, backgroundSprites);
             level.comp.layers.push(backgroundLayer);
         });
@@ -34,8 +34,8 @@ export function loadLevel(name) {
 function createCollisionGrid(tiles, patterns) {
     const grid = new Matrix();
 
-    for(const {tile, x, y} of expandTiles(tiles, patterns)){
-        grid.set(x, y, {type: tile.type,});
+    for (const {tile, x, y} of expandTiles(tiles, patterns)) {
+        grid.set(x, y, {type: tile.type});
     }
 
     return grid;
@@ -44,12 +44,13 @@ function createCollisionGrid(tiles, patterns) {
 function createBackgroundGrid(tiles, patterns) {
     const grid = new Matrix();
 
-    for(const {tile, x, y} of expandTiles(tiles, patterns)){
-        grid.set(x, y, {name: tile.name,});
+    for (const {tile, x, y} of expandTiles(tiles, patterns)) {
+        grid.set(x, y, {name: tile.name});
     }
 
     return grid;
 }
+
 
 function* expandSpan(xStart, xLen, yStart, yLen) {
     const xEnd = xStart + xLen;
@@ -77,8 +78,8 @@ function expandRange(range) {
 }
 
 function* expandRanges(ranges) {
-    for(const range of ranges){
-        for(const item of expandRange(range)){
+    for (const range of ranges) {
+        for (const item of expandRange(range)) {
             yield item;
         }
     }
@@ -87,20 +88,20 @@ function* expandRanges(ranges) {
 function expandTiles(tiles, patterns) {
     const expandedTiles = [];
 
-    function walkTiles(tiles, offsetX, offsetY){
-        for(const tile of tiles) {
-            for (const {x,y} of expandRanges(tile.ranges)) {
+    function walkTiles(tiles, offsetX, offsetY) {
+        for (const tile of tiles) {
+            for (const {x, y} of expandRanges(tile.ranges)) {
                 const derivedX = x + offsetX;
                 const derivedY = y + offsetY;
 
-                if(tile.pattern){
+                if (tile.pattern) {
                     const tiles = patterns[tile.pattern].tiles;
                     walkTiles(tiles, derivedX, derivedY);
                 } else {
                     expandedTiles.push({
                         tile,
-                        x:derivedX,
-                        y:derivedY
+                        x: derivedX,
+                        y: derivedY,
                     });
                 }
             }

@@ -1,7 +1,6 @@
 import Compositor from './Compositor.js';
 import TileCollider from '../collision/TileCollider.js';
 
-
 export default class Level {
     constructor() {
         this.gravity = 1500;
