@@ -1,7 +1,8 @@
 import {Matrix} from '../../modules/Vec2.js';
 import Level from '../../modules/Level.js';
-import {createBackgroundLayer, createSpriteLayer} from '../layers.js';
+import {createSpriteLayer} from '../layers/sprite.js';
 import {loadJSON, loadSpriteSheet} from '../loaders.js';
+import {createBackgroundLayer} from '../layers/background.js'
 
 function setupCollision(levelSpec, level) {
     const mergedTiles = levelSpec.layers.reduce((mergedTiles, layerSpec) => {

@@ -3,7 +3,7 @@ import Timer from './modules/Timer.js';
 import {createLevelLoader} from './libraries/loaders/level.js';
 import {loadEntities} from './libraries/entities.js';
 import {setupKeyboard} from './libraries/input.js';
-import {createCollisionLayer} from './libraries/layers.js';
+import {createCollisionLayer} from './libraries/layers/collision.js';
 import Entity from './modules/Entity.js';
 import PlayerController from './modules/traits/PlayerController.js';
 
