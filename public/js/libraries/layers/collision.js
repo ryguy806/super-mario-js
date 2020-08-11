@@ -1,7 +1,22 @@
-export function createCollisionLayer(level) {
+function createEntityLayer(entities) {
+    return function drawBoundingBox(context, camera) {
+        context.strokeStyle = 'red';
+        entities.forEach(entity => {
+            context.beginPath();
+            context.rect(
+                entity.bounds.left - camera.pos.x,
+                entity.bounds.top - camera.pos.y,
+                entity.size.x,
+                entity.size.y);
+            context.stroke();
+        });
+    }
+}
+
+function createTileCandidateLayer(tileCollider){
     const resolvedTiles = [];
 
-    const tileResolver = level.tileCollider.tiles;
+    const tileResolver = tileCollider.tiles;
     const tileSize = tileResolver.tileSize;
 
     const getByIndexOriginal = tileResolver.getByIndex;
@@ -10,7 +25,7 @@ export function createCollisionLayer(level) {
         return getByIndexOriginal.call(tileResolver, x, y);
     }
 
-    return function drawCollision(context, camera) {
+    return function drawTileCandidate(context, camera){
         context.strokeStyle = 'blue';
         resolvedTiles.forEach(({x, y}) => {
             context.beginPath();
@@ -20,18 +35,19 @@ export function createCollisionLayer(level) {
                 tileSize, tileSize);
             context.stroke();
         });
-
-        context.strokeStyle = 'red';
-        level.entities.forEach(entity => {
-            context.beginPath();
-            context.rect(
-                entity.bounds.left - camera.pos.x,
-                entity.bounds.top - camera.pos.y,
-                entity.size.x,
-                entity.size.y);
-            context.stroke();
-        });
-
         resolvedTiles.length = 0;
+    }
+}
+
+export function createCollisionLayer(level) {
+    
+    const drawBoundingBoxes = createEntityLayer(level.entities);
+    const tileCandidateLayer = createTileCandidateLayer(level.tileCollider)
+
+    return function drawCollision(context, camera) {
+       
+
+        drawBoundingBoxes(context, camera);
+        tileCandidateLayer(context, camera);
     };
 }
