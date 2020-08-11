@@ -3,7 +3,7 @@ import Level from '../../modules/Level.js';
 import {createBackgroundLayer, createSpriteLayer} from '../layers.js';
 import {loadJSON, loadSpriteSheet} from '../loaders.js';
 
-function setupCollision(levelSpec, level){
+function setupCollision(levelSpec, level) {
     const mergedTiles = levelSpec.layers.reduce((mergedTiles, layerSpec) => {
         return mergedTiles.concat(layerSpec.tiles);
     }, []);
@@ -11,7 +11,7 @@ function setupCollision(levelSpec, level){
     level.setCollisionGrid(collisionGrid);
 }
 
-function setupBackgrounds(levelSpec, level, backgroundSprites){
+function setupBackgrounds(levelSpec, level, backgroundSprites) {
     levelSpec.layers.forEach(layer => {
         const backgroundGrid = createBackgroundGrid(layer.tiles, levelSpec.patterns);
         const backgroundLayer = createBackgroundLayer(level, backgroundGrid, backgroundSprites);
@@ -19,20 +19,19 @@ function setupBackgrounds(levelSpec, level, backgroundSprites){
     });
 }
 
-function setupEntities(levelSpec, level, entityFactory){
-
+function setupEntities(levelSpec, level, entityFactory) {
     levelSpec.entities.forEach(({name, pos: [x, y]}) => {
         const createEntity = entityFactory[name];
         const entity = createEntity();
         entity.pos.set(x, y);
         level.entities.add(entity);
-    })
+    });
 
     const spriteLayer = createSpriteLayer(level.entities);
     level.comp.layers.push(spriteLayer);
 }
 
-export function createLeverLoader(entityFactory){
+export function createLevelLoader(entityFactory) {
     return function loadLevel(name) {
         return loadJSON(`/levels/${name}.json`)
         .then(levelSpec => Promise.all([
@@ -41,11 +40,11 @@ export function createLeverLoader(entityFactory){
         ]))
         .then(([levelSpec, backgroundSprites]) => {
             const level = new Level();
-    
+
             setupCollision(levelSpec, level);
             setupBackgrounds(levelSpec, level, backgroundSprites);
             setupEntities(levelSpec, level, entityFactory);
-    
+
             return level;
         });
     }

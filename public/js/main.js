@@ -1,6 +1,6 @@
 import Camera from './modules/Camera.js';
 import Timer from './modules/Timer.js';
-import {createLeverLoader} from './libraries/loaders/level.js';
+import {createLevelLoader} from './libraries/loaders/level.js';
 import {loadEntities} from './libraries/entities.js';
 import {setupKeyboard} from './libraries/input.js';
 import {createCollisionLayer} from './libraries/layers.js';
@@ -10,7 +10,7 @@ import PlayerController from './modules/traits/PlayerController.js';
 function createPlayerEnv(playerEntity) {
     const playerEnv = new Entity();
     const playerControl = new PlayerController();
-    playerControl.checkPoint.set(64, 64);
+    playerControl.checkpoint.set(64, 64);
     playerControl.setPlayer(playerEntity);
     playerEnv.addTrait(playerControl);
     return playerEnv;
@@ -20,7 +20,7 @@ async function main(canvas) {
     const context = canvas.getContext('2d');
 
     const entityFactory = await loadEntities();
-    const loadLevel = await createLeverLoader(entityFactory);
+    const loadLevel = await createLevelLoader(entityFactory);
 
     const level = await loadLevel('1-1');
 

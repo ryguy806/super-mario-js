@@ -1,9 +1,11 @@
 import Entity from '../../modules/Entity.js';
-import Go from '../../modules/traits/Go.js';
-import Jump from '../../modules/traits/Jump.js';
-import {loadSpriteSheet} from '../loaders.js';
-import Stomper from '../../modules/traits/Stomper.js';
 import Killable from '../../modules/traits/Killable.js';
+import Go from '../../modules/traits/Go.js'
+import Jump from '../../modules/traits/Jump.js'
+import Physics from '../../modules/traits/Physics.js';
+import Solid from '../../modules/traits/Solid.js';
+import Stomper from '../../modules/traits/Stomper.js';
+import {loadSpriteSheet} from '../loaders.js';
 
 const SLOW_DRAG = 1/1000;
 const FAST_DRAG = 1/5000;
@@ -44,10 +46,12 @@ function createMarioFactory(sprite) {
         const mario = new Entity();
         mario.size.set(14, 16);
 
+        mario.addTrait(new Physics());
+        mario.addTrait(new Solid());
         mario.addTrait(new Go());
         mario.addTrait(new Jump());
-        mario.addTrait(new Stomper());
         mario.addTrait(new Killable());
+        mario.addTrait(new Stomper());
 
         mario.killable.removeAfter = 0;
 

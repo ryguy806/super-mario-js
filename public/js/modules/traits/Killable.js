@@ -14,13 +14,17 @@ export default class Killable extends Trait {
 
     revive() {
         this.dead = false;
-        this.deadTime = 0; 
+        this.deadTime = 0;
     }
 
     update(entity, deltaTime, level) {
-        if(this.dead) {
+        if (this.dead) {
             this.deadTime += deltaTime;
-            if ( this.deadTime > this.removeAfter) this.queue(() => level.entities.delete(entity));
+            if (this.deadTime > this.removeAfter) {
+                this.queue(() => {
+                    level.entities.delete(entity);
+                });
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ import {Sides, Trait} from '../Entity.js';
 export default class Stomper extends Trait {
     constructor() {
         super('stomper');
-        this.queueBounce = false;
         this.bounceSpeed = 400;
     }
 
@@ -13,10 +12,11 @@ export default class Stomper extends Trait {
     }
 
     collides(us, them) {
-        if(!them.killable || them.killable.dead) {
+        if (!them.killable || them.killable.dead) {
             return;
         }
-        if(us.vel.y > them.vel.y){
+
+        if (us.vel.y > them.vel.y) {
             this.bounce(us, them);
         }
     }
