@@ -11,6 +11,8 @@ export const Sides = {
 export class Trait {
     constructor(name) {
         this.NAME = name;
+
+        this.tasks = [];
     }
 
     collides(us, them){
@@ -23,6 +25,15 @@ export class Trait {
 
     update() {
 
+    }
+
+    queue(task) {
+        this.tasks.push(task);
+    }
+
+    finalize() {
+        this.tasks.forEach(task => task());
+        this.tasks.length = 0;
     }
 }
 
@@ -59,6 +70,10 @@ export default class Entity {
 
     draw() {
         
+    }
+
+    finalize() {
+        this.traits.forEach(trait => trait.finalize());
     }
 
     update(deltaTime, level) {
