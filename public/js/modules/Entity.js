@@ -1,5 +1,6 @@
 import {Vec2} from './Vec2.js';
 import BoundingBox from '../libraries/entities/BoundingBox.js';
+import AudioBoard from './AudioBoard.js';
 
 export const Sides = {
     TOP: Symbol('top'),
@@ -45,6 +46,7 @@ export default class Entity {
         this.offset = new Vec2(0, 0);
         this.bounds = new BoundingBox(this.pos, this.size, this.offset);
         this.lifetime = 0;
+        this.audio = new AudioBoard();
 
         this.traits = [];
     }
@@ -76,11 +78,11 @@ export default class Entity {
         });
     }
 
-    update(deltaTime, level) {
+    update(gameContext, level) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime, level);
+            trait.update(this, gameContext, level);
         });
 
-        this.lifetime += deltaTime;
+        this.lifetime += gameContext.deltaTime;
     }
 }
