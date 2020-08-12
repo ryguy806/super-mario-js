@@ -127,6 +127,24 @@
                     ]
                 }
             ]
+        },
+        "cannon-2h": {
+            "tiles": [
+                {
+                    "name": "cannon-1",
+                    "type":"ground",
+                    "ranges":[
+                        [0,0]
+                    ]
+                },
+                {
+                    "name": "cannon-3",
+                    "type":"ground",
+                    "ranges":[
+                        [0,1]
+                    ]
+                }
+            ]
         }
     },
     "layers": [
@@ -251,6 +269,16 @@
         {
             "tiles": [
                 {
+                    "pattern": "cannon-2h",
+                    "ranges": [
+                        [6,11]
+                    ]
+                }
+            ]
+        },
+        {
+            "tiles": [
+                {
                     "name": "bricks",
                     "type": "ground",
                     "ranges": [
@@ -363,6 +391,10 @@
         {
             "name": "goomba",
             "pos": [220, 0]
+        },
+        {
+            "name": "bullet",
+            "pos": [0, 96]
         }
     ]
 }
