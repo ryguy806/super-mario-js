@@ -1,4 +1,4 @@
-import {Sides, Trait} from '../Entity.js';
+import {Trait} from '../Entity.js';
 import {Vec2} from '../Vec2.js';
 
 export default class PlayerController extends Trait {
@@ -13,9 +13,9 @@ export default class PlayerController extends Trait {
     setPlayer(entity) {
         this.player = entity;
 
-        this.player.stomper.onStomp = () => {
+        this.player.stomper.events.listen('stomp', () => {
             this.score += 100;
-        }
+        });
     }
 
     update(entity, {deltaTime}, level) {

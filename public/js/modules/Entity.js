@@ -1,6 +1,7 @@
 import {Vec2} from './Vec2.js';
 import BoundingBox from '../libraries/entities/BoundingBox.js';
 import AudioBoard from './AudioBoard.js';
+import EventEmitter from './EventEmitter.js';
 
 export const Sides = {
     TOP: Symbol('top'),
@@ -14,6 +15,8 @@ export class Trait {
         this.NAME = name;
         this.sounds = new Set();
         this.tasks = [];
+
+        this.events = new EventEmitter();
     }
 
     finalize() {
