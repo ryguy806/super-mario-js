@@ -10,10 +10,10 @@ function createEntityLayer(entities) {
                 entity.size.y);
             context.stroke();
         });
-    }
+    };
 }
 
-function createTileCandidateLayer(tileCollider){
+function createTileCandidateLayer(tileCollider) {
     const resolvedTiles = [];
 
     const tileResolver = tileCollider.tiles;
@@ -25,7 +25,7 @@ function createTileCandidateLayer(tileCollider){
         return getByIndexOriginal.call(tileResolver, x, y);
     }
 
-    return function drawTileCandidate(context, camera){
+    return function drawTileCandidates(context, camera) {
         context.strokeStyle = 'blue';
         resolvedTiles.forEach(({x, y}) => {
             context.beginPath();
@@ -35,19 +35,18 @@ function createTileCandidateLayer(tileCollider){
                 tileSize, tileSize);
             context.stroke();
         });
+
         resolvedTiles.length = 0;
     }
 }
 
 export function createCollisionLayer(level) {
-    
+
+    const drawTileCandidates = createTileCandidateLayer(level.tileCollider);
     const drawBoundingBoxes = createEntityLayer(level.entities);
-    const tileCandidateLayer = createTileCandidateLayer(level.tileCollider)
 
     return function drawCollision(context, camera) {
-       
-
+        drawTileCandidates(context, camera);
         drawBoundingBoxes(context, camera);
-        tileCandidateLayer(context, camera);
     };
 }

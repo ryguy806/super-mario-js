@@ -1,6 +1,6 @@
 import {Vec2} from './Vec2.js';
-import BoundingBox from '../libraries/entities/BoundingBox.js';
 import AudioBoard from './AudioBoard.js';
+import BoundingBox from '../libraries/entities/BoundingBox.js';
 import EventEmitter from './EventEmitter.js';
 
 export const Sides = {
@@ -13,10 +13,9 @@ export const Sides = {
 export class Trait {
     constructor(name) {
         this.NAME = name;
-        this.sounds = new Set();
-        this.tasks = [];
 
         this.events = new EventEmitter();
+        this.tasks = [];
     }
 
     finalize() {
@@ -36,14 +35,6 @@ export class Trait {
 
     }
 
-    playSounds(audioBoard, audioContext){
-        this.sounds.forEach(name => {
-            audioBoard.playAudio(name, audioContext);
-        });
-
-        this.sounds.clear();
-    }
-
     update() {
 
     }
@@ -51,13 +42,15 @@ export class Trait {
 
 export default class Entity {
     constructor() {
+        this.audio = new AudioBoard();
+        this.sounds = new Set();
+
         this.pos = new Vec2(0, 0);
         this.vel = new Vec2(0, 0);
         this.size = new Vec2(0, 0);
         this.offset = new Vec2(0, 0);
         this.bounds = new BoundingBox(this.pos, this.size, this.offset);
         this.lifetime = 0;
-        this.audio = new AudioBoard();
 
         this.traits = [];
     }
@@ -89,11 +82,20 @@ export default class Entity {
         });
     }
 
+    playSounds(audioBoard, audioContext) {
+        this.sounds.forEach(name => {
+            audioBoard.playAudio(name, audioContext);
+        });
+
+        this.sounds.clear();
+    }
+
     update(gameContext, level) {
         this.traits.forEach(trait => {
             trait.update(this, gameContext, level);
-            trait.playSounds(this.audio, gameContext.audioContext);
         });
+
+        this.playSounds(this.audio, gameContext.audioContext);
 
         this.lifetime += gameContext.deltaTime;
     }

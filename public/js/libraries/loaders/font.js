@@ -3,7 +3,7 @@ import SpriteSheet from '../../modules/SpriteSheet.js';
 
 const CHARS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
 
-export class Font {
+class Font {
     constructor(sprites, size) {
         this.sprites = sprites;
         this.size = size;
@@ -12,9 +12,10 @@ export class Font {
     print(text, context, x, y) {
         [...text].forEach((char, pos) => {
             this.sprites.draw(char, context, x + pos * this.size, y);
-        })
+        });
     }
 }
+
 
 export function loadFont() {
     return loadImage('./img/font.png')
@@ -23,12 +24,12 @@ export function loadFont() {
 
         const size = 8;
         const rowLen = image.width;
-        for(let [index, char] of [...CHARS].entries()) {
+        for (let [index, char] of [...CHARS].entries()) {
             const x = index * size % rowLen;
             const y = Math.floor(index * size / rowLen) * size;
             fontSprite.define(char, x, y, size, size);
         }
-        
+
         return new Font(fontSprite, size);
     });
 }

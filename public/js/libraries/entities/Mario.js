@@ -1,12 +1,12 @@
 import Entity from '../../modules/Entity.js';
+import Go from '../../modules/traits/Go.js';
+import Jump from '../../modules/traits/Jump.js';
 import Killable from '../../modules/traits/Killable.js';
-import Go from '../../modules/traits/Go.js'
-import Jump from '../../modules/traits/Jump.js'
 import Physics from '../../modules/traits/Physics.js';
 import Solid from '../../modules/traits/Solid.js';
 import Stomper from '../../modules/traits/Stomper.js';
+import {loadAudioBoard} from '../loaders/audio.js';
 import {loadSpriteSheet} from '../loaders.js';
-import { loadAudioBoard } from '../loaders/audio.js';
 
 const SLOW_DRAG = 1/1000;
 const FAST_DRAG = 1/5000;
@@ -14,11 +14,11 @@ const FAST_DRAG = 1/5000;
 export function loadMario(audioContext) {
     return Promise.all([
         loadSpriteSheet('mario'),
-        loadAudioBoard('mario', audioContext)
+        loadAudioBoard('mario', audioContext),
     ])
     .then(([sprite, audio]) => {
         return createMarioFactory(sprite, audio);
-    })
+    });
 }
 
 function createMarioFactory(sprite, audio) {

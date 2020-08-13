@@ -1,22 +1,13 @@
 import Camera from './modules/Camera.js';
 import Timer from './modules/Timer.js';
 import {createLevelLoader} from './libraries/loaders/level.js';
+import {loadFont} from './libraries/loaders/font.js';
 import {loadEntities} from './libraries/entities.js';
+import {createPlayer, createPlayerEnv} from './libraries/player.js';
 import {setupKeyboard} from './libraries/input.js';
 import {createCollisionLayer} from './libraries/layers/collision.js';
-import Entity from './modules/Entity.js';
-import PlayerController from './modules/traits/PlayerController.js';
-import { loadFont } from './libraries/loaders/font.js';
-import { createDashboardLayer } from './libraries/layers/dashboard.js';
+import {createDashboardLayer} from './libraries/layers/dashboard.js';
 
-function createPlayerEnv(playerEntity) {
-    const playerEnv = new Entity();
-    const playerControl = new PlayerController();
-    playerControl.checkpoint.set(64, 64);
-    playerControl.setPlayer(playerEntity);
-    playerEnv.addTrait(playerControl);
-    return playerEnv;
-}
 
 async function main(canvas) {
     const context = canvas.getContext('2d');
@@ -27,16 +18,18 @@ async function main(canvas) {
         loadFont(),
     ]);
 
+
     const loadLevel = await createLevelLoader(entityFactory);
 
     const level = await loadLevel('1-1');
 
     const camera = new Camera();
 
-    const mario = entityFactory.mario();
+    const mario = createPlayer(entityFactory.mario());
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
+
 
     level.comp.layers.push(createCollisionLayer(level));
     level.comp.layers.push(createDashboardLayer(font, playerEnv));
@@ -46,13 +39,13 @@ async function main(canvas) {
 
     const gameContext = {
         audioContext,
-        deltaTime: null
-    }
+        deltaTime: null,
+    };
 
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {
         gameContext.deltaTime = deltaTime;
-        level.update(gameContext); 
+        level.update(gameContext);
 
         camera.pos.x = Math.max(0, mario.pos.x - 100);
 
@@ -60,7 +53,13 @@ async function main(canvas) {
     }
 
     timer.start();
-} 
+}
 
 const canvas = document.getElementById('screen');
-main(canvas);
+
+const start = () => {
+    window.removeEventListener('click', start);
+    main(canvas);
+};
+
+window.addEventListener('click', start);

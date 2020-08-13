@@ -1,7 +1,6 @@
 import Compositor from './Compositor.js';
-import TileCollider from '../collision/TileCollider.js';
 import EntityCollider from '../collision/EntityCollider.js';
-
+import TileCollider from '../collision/TileCollider.js';
 
 export default class Level {
     constructor() {

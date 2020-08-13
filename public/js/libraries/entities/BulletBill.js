@@ -1,14 +1,13 @@
-import Entity, {Sides, Trait} from '../../modules/Entity.js';
-import Killable from '../../modules/traits/Killable.js';
-import {loadSpriteSheet} from '../loaders.js';
+import Entity, {Trait} from '../../modules/Entity.js';
 import Velocity from '../../modules/traits/Velocity.js';
 import Gravity from '../../modules/traits/Gravity.js';
+import Killable from '../../modules/traits/Killable.js';
+import {loadSpriteSheet} from '../loaders.js';
 
-export function loadBullet() {
-    return loadSpriteSheet('bullet')
-    .then(createBulletFactory);
+export function loadBulletBill() {
+    return loadSpriteSheet('bullet-bill')
+    .then(createBulletBillFactory);
 }
-
 
 class Behavior extends Trait {
     constructor() {
@@ -31,29 +30,27 @@ class Behavior extends Trait {
         }
     }
 
-    update(entity, gameContext, level) {
-        if(entity.killable.dead) {
-            this.gravity.update(entity, gameContext, level);
+    update(entity, deltaTime, level) {
+        if (entity.killable.dead) {
+            this.gravity.update(entity, deltaTime, level);
         }
     }
 }
 
-
-function createBulletFactory(sprite) {
-    function drawBullet(context) {
-        sprite.draw('bullet', context, 0, 0);
+function createBulletBillFactory(sprite) {
+    function drawBulletBill(context) {
+        sprite.draw('bullet', context, 0, 0, this.vel.x < 0);
     }
 
-    return function createBullet() {
+    return function createBulletBill() {
         const bullet = new Entity();
         bullet.size.set(16, 14);
-        bullet.vel.set(80, 0);
 
-        bullet.addTrait(new Behavior());
-        bullet.addTrait(new Killable());
         bullet.addTrait(new Velocity());
+        bullet.addTrait(new Killable());
+        bullet.addTrait(new Behavior());
 
-        bullet.draw = drawBullet;
+        bullet.draw = drawBulletBill;
 
         return bullet;
     };
