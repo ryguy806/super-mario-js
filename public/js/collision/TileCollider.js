@@ -1,16 +1,22 @@
 import TileResolver from './TileResolver.js';
 import {ground} from './tiles/ground.js'
+import { brick } from './tiles/brick.js';
 
 const handlers = {
-    "ground": ground
+    brick,
+    ground,
 }
 
 export default class TileCollider {
-    constructor(tileMatrix) {
-        this.tiles = new TileResolver(tileMatrix);
+    constructor() {
+        this.resolvers = [];
     }
 
-    checkX(entity) {
+    addGrid(tileMatrix) {
+        this.resolvers.push(new TileResolver(tileMatrix));
+    }
+
+    checkX(entity, gameContext, level) {
         let x;
         if (entity.vel.x > 0) {
             x = entity.bounds.right;
@@ -20,17 +26,18 @@ export default class TileCollider {
             return;
         }
 
-        const matches = this.tiles.searchByRange(
-            x, x,
-            entity.bounds.top, entity.bounds.bottom);
+        for (const resolver of this.resolvers) {
+            const matches = resolver.searchByRange(
+                x, x,
+                entity.bounds.top, entity.bounds.bottom);
 
-        matches.forEach(match => {
-            this.handles(0, entity, match);
-
-        });
+            matches.forEach(match => {
+                this.handle(0, entity, match, resolver, gameContext, level);
+            });
+        }
     }
 
-    checkY(entity) {
+    checkY(entity, gameContext, level) {
         let y;
         if (entity.vel.y > 0) {
             y = entity.bounds.bottom;
@@ -40,19 +47,29 @@ export default class TileCollider {
             return;
         }
 
-        const matches = this.tiles.searchByRange(
-            entity.bounds.left, entity.bounds.right,
-            y, y);
+        for (const resolver of this.resolvers) {
+            const matches = resolver.searchByRange(
+                entity.bounds.left, entity.bounds.right,
+                y, y);
 
-        matches.forEach(match => {
-            this.handles(1, entity, match);
-        });
+            matches.forEach(match => {
+                this.handle(1, entity, match, resolver, gameContext, level);
+            });
+        }
     }
 
-    handles(index, entity, match) {
+    handle(index, entity, match, resolver, gameContext, level) {
+        const tileCollisionContext = {
+            entity,
+            match,
+            resolver,
+            gameContext,
+            level,
+        };
+
         const handler = handlers[match.tile.type];
-            if (handler) {
-                handler[index](entity, match);
-            }
+        if (handler) {
+            handler[index](tileCollisionContext);
+        }
     }
 }

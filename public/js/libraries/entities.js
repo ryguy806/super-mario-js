@@ -1,9 +1,8 @@
 import {loadMario} from './entities/Mario.js';
 import {loadGoomba} from './entities/Goomba.js';
 import {loadKoopa} from './entities/Koopa.js';
-import {loadBulletBill} from './entities/BulletBill.js';
+import {loadBullet} from './entities/Bullet.js';
 import {loadCannon} from './entities/Cannon.js';
-
 
 export function loadEntities(audioContext) {
     const entityFactories = {};
@@ -12,12 +11,11 @@ export function loadEntities(audioContext) {
         return factory => entityFactories[name] = factory;
     }
 
-
     return Promise.all([
         loadMario(audioContext).then(addAs('mario')),
         loadGoomba(audioContext).then(addAs('goomba')),
         loadKoopa(audioContext).then(addAs('koopa')),
-        loadBulletBill(audioContext).then(addAs('bullet')),
+        loadBullet(audioContext).then(addAs('bullet')),
         loadCannon(audioContext, entityFactories).then(addAs('cannon')),
 
     ])
