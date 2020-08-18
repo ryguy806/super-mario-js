@@ -6,7 +6,7 @@ import Physics from '../../modules/traits/Physics.js';
 import Solid from '../../modules/traits/Solid.js';
 import Stomper from '../../modules/traits/Stomper.js';
 import {loadAudioBoard} from '../loaders/audio.js';
-import {loadSpriteSheet} from '../loaders.js';
+import {loadSpriteSheet} from '../loaders/sprite.js';
 
 const SLOW_DRAG = 1/1000;
 const FAST_DRAG = 1/5000;

@@ -3,7 +3,7 @@ import Killable from '../../modules/traits/Killable.js';
 import PendulumMove from '../../modules/traits/PendulumMove.js';
 import Physics from '../../modules/traits/Physics.js';
 import Solid from '../../modules/traits/Solid.js';
-import {loadSpriteSheet} from '../loaders.js';
+import {loadSpriteSheet} from '../loaders/sprite.js';
 
 export function loadKoopa() {
     return loadSpriteSheet('koopa')

@@ -2,7 +2,7 @@ import Entity, {Trait} from '../../modules/Entity.js';
 import Velocity from '../../modules/traits/Velocity.js';
 import Gravity from '../../modules/traits/Gravity.js';
 import Killable from '../../modules/traits/Killable.js';
-import {loadSpriteSheet} from '../loaders.js';
+import {loadSpriteSheet} from '../loaders/sprite.js';
 
 export function loadBullet() {
     return loadSpriteSheet('bullet')

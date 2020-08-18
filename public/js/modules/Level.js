@@ -1,11 +1,14 @@
 import Compositor from './Compositor.js';
 import EntityCollider from '../collision/EntityCollider.js';
 import TileCollider from '../collision/TileCollider.js';
+import MusicController from './MusicController.js';
 
 export default class Level {
     constructor() {
         this.gravity = 1500;
         this.totalTime = 0;
+
+        this.music = new MusicController();
 
         this.comp = new Compositor();
         this.entities = new Set();
