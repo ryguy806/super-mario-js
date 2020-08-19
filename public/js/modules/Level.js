@@ -1,7 +1,7 @@
 import Compositor from './Compositor.js';
+import MusicController from './MusicController.js';
 import EntityCollider from '../collision/EntityCollider.js';
 import TileCollider from '../collision/TileCollider.js';
-import MusicController from './MusicController.js';
 
 export default class Level {
     constructor() {

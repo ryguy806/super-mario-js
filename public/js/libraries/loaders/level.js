@@ -1,10 +1,10 @@
 import {Matrix} from '../../modules/Vec2.js';
 import Level from '../../modules/Level.js';
-import {createSpriteLayer} from '../layers/sprite.js';
+import {createSpriteLayer} from '../layers/sprites.js';
 import {createBackgroundLayer} from '../layers/background.js';
-import {loadJSON} from '../loaders.js';
 import {loadMusicSheet} from './music.js';
 import {loadSpriteSheet} from './sprite.js';
+import {loadJSON} from '../loaders.js';
 
 function setupBackgrounds(levelSpec, level, backgroundSprites) {
     levelSpec.layers.forEach(layer => {
@@ -56,6 +56,7 @@ function createGrid(tiles, patterns) {
 
     return grid;
 }
+
 
 function* expandSpan(xStart, xLen, yStart, yLen) {
     const xEnd = xStart + xLen;

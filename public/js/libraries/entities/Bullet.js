@@ -1,14 +1,13 @@
-import Entity, {Trait} from '../../modules/Entity.js';
-import Velocity from '../../modules/traits/Velocity.js';
-import Gravity from '../../modules/traits/Gravity.js';
+import Entity, {Sides, Trait} from '../../modules/Entity.js';
 import Killable from '../../modules/traits/Killable.js';
+import Gravity from '../../modules/traits/Gravity.js';
+import Velocity from '../../modules/traits/Velocity.js';
 import {loadSpriteSheet} from '../loaders/sprite.js';
 
 export function loadBullet() {
     return loadSpriteSheet('bullet')
     .then(createBulletFactory);
 }
-
 
 class Behavior extends Trait {
     constructor() {

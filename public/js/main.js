@@ -18,7 +18,6 @@ async function main(canvas) {
         loadFont(),
     ]);
 
-
     const loadLevel = await createLevelLoader(entityFactory);
 
     const level = await loadLevel('1-1');
@@ -26,10 +25,10 @@ async function main(canvas) {
     const camera = new Camera();
 
     const mario = createPlayer(entityFactory.mario());
+    window.mario = mario;
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
-
 
     level.comp.layers.push(createCollisionLayer(level));
     level.comp.layers.push(createDashboardLayer(font, playerEnv));
