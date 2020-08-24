@@ -8,7 +8,6 @@ import {setupKeyboard} from './libraries/input.js';
 import {createCollisionLayer} from './libraries/layers/collision.js';
 import {createDashboardLayer} from './libraries/layers/dashboard.js';
 
-
 async function main(canvas) {
     const context = canvas.getContext('2d');
     const audioContext = new AudioContext();
@@ -18,6 +17,7 @@ async function main(canvas) {
         loadFont(),
     ]);
 
+
     const loadLevel = await createLevelLoader(entityFactory);
 
     const level = await loadLevel('1-1');
@@ -25,13 +25,14 @@ async function main(canvas) {
     const camera = new Camera();
 
     const mario = createPlayer(entityFactory.mario());
-    window.mario = mario;
+    mario.player.name = "MARIO";
+    level.entities.add(mario);
 
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
 
     level.comp.layers.push(createCollisionLayer(level));
-    level.comp.layers.push(createDashboardLayer(font, playerEnv));
+    level.comp.layers.push(createDashboardLayer(font, level));
 
     const input = setupKeyboard(mario);
     input.listenTo(window);
@@ -53,7 +54,6 @@ async function main(canvas) {
     }
 
     timer.start();
-    level.music.player.playTrack('main');
 }
 
 const canvas = document.getElementById('screen');

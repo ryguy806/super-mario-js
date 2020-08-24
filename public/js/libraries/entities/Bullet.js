@@ -9,6 +9,7 @@ export function loadBullet() {
     .then(createBulletFactory);
 }
 
+
 class Behavior extends Trait {
     constructor() {
         super('behavior');
