@@ -89,6 +89,18 @@
         {
             "name": "cannon-3",
             "index": [9, 1]
+        },
+        {
+            "name": "coin-1",
+            "index": [24, 1]
+        },
+        {
+            "name": "coin-2",
+            "index": [25, 1]
+        },
+        {
+            "name": "coin-3",
+            "index": [26, 1]
         }
     ],
 
@@ -102,6 +114,17 @@
                 "chance-2",
                 "chance-3",
                 "chance-2"
+            ]
+        },
+        {
+            "name": "coin",
+            "frameLen": 0.12,
+            "frames": [
+                "coin-1",
+                "coin-1",
+                "coin-2",
+                "coin-3",
+                "coin-2"
             ]
         }
     ]
