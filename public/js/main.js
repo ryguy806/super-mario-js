@@ -20,7 +20,7 @@ async function main(canvas) {
 
     const loadLevel = await createLevelLoader(entityFactory);
 
-    const level = await loadLevel('1-1');
+    const level = await loadLevel('1-2');
 
     const camera = new Camera();
 
