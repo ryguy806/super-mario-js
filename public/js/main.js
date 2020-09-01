@@ -6,6 +6,7 @@ import {createPlayer, createPlayerEnv} from './libraries/player.js';
 import {setupKeyboard} from './libraries/input.js';
 import {createCollisionLayer} from './libraries/layers/collision.js';
 import {createDashboardLayer} from './libraries/layers/dashboard.js';
+import {createPlayerProgressLayer} from './libraries/layers/player-progress.js';
 
 async function main(canvas) {
     const videoContext = canvas.getContext('2d');
@@ -20,6 +21,9 @@ async function main(canvas) {
 
     const level = await loadLevel('1-2');
 
+    const playerProgressLayer = createPlayerProgressLayer(font, level);
+    const dashboardLayer = createDashboardLayer(font, level);
+
     const mario = createPlayer(entityFactory.mario());
     mario.player.name = "MARIO";
     level.entities.add(mario);
@@ -28,7 +32,8 @@ async function main(canvas) {
     level.entities.add(playerEnv);
 
     level.comp.layers.push(createCollisionLayer(level));
-    level.comp.layers.push(createDashboardLayer(font, level));
+    level.comp.layers.push(dashboardLayer);
+    level.comp.layers.push(playerProgressLayer);
 
     const inputRouter = setupKeyboard(window);
     inputRouter.addReceiver(mario);

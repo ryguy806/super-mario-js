@@ -22,6 +22,8 @@ export function createDashboardLayer(font, level) {
     const timerTrait = getTimerTrait(level);
 
     return function drawDashboard(context) {
+        const playerTrait = getPlayerTrait(level);
+        
         font.print(playerTrait.name, context, 16, LINE1);
         font.print(playerTrait.score.toString().padStart(6, '0'), context, 16, LINE2);
 
