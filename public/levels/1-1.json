@@ -1,6 +1,6 @@
 {
     "spriteSheet": "overworld",
-    "musicSheet": "overworld",
+    "musicSheet": "silent",
     "patternSheet": "overworld-patterns",
 
     "layers": [
@@ -39,43 +39,6 @@
                         [
                             157, 2,
                             13, 2
-                        ]
-                    ]
-                },
-                {
-                    "name": "ground",
-                    "type": "ground",
-                    "ranges": [
-                        [
-                            5, 3,
-                            9, 1
-                        ],
-                        [
-                            29, 5
-                        ],
-                        [
-                            5, 7,
-                            9
-                        ],
-                        [
-                            12, 6,
-                            11, 1
-                        ],
-                        [
-                            2, 1,
-                            11, 1
-                        ],
-                        [
-                            10, 2,
-                            10, 1
-                        ],
-                        [
-                            10, 2,
-                            10
-                        ],
-                        [
-                            9, 1,
-                            0, 7
                         ]
                     ]
                 }
@@ -232,11 +195,11 @@
         {
             "tiles": [
                 {
-                    "pattern": "cannon-2h",
+                    "name": "coin",
+                    "type": "coin",
                     "ranges": [
-                        [
-                            6, 7
-                        ]
+                        [9, 10],
+                        [9, 11]
                     ]
                 }
             ]

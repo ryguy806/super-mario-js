@@ -1,4 +1,3 @@
-import Camera from './modules/Camera.js';
 import Timer from './modules/Timer.js';
 import {createLevelLoader} from './libraries/loaders/level.js';
 import {loadFont} from './libraries/loaders/font.js';
@@ -9,7 +8,7 @@ import {createCollisionLayer} from './libraries/layers/collision.js';
 import {createDashboardLayer} from './libraries/layers/dashboard.js';
 
 async function main(canvas) {
-    const context = canvas.getContext('2d');
+    const videoContext = canvas.getContext('2d');
     const audioContext = new AudioContext();
 
     const [entityFactory, font] = await Promise.all([
@@ -21,8 +20,6 @@ async function main(canvas) {
     const loadLevel = await createLevelLoader(entityFactory);
 
     const level = await loadLevel('1-2');
-
-    const camera = new Camera();
 
     const mario = createPlayer(entityFactory.mario());
     mario.player.name = "MARIO";
@@ -39,6 +36,7 @@ async function main(canvas) {
 
     const gameContext = {
         audioContext,
+        videoContext,
         entityFactory,
         deltaTime: null,
     };
@@ -47,10 +45,7 @@ async function main(canvas) {
     timer.update = function update(deltaTime) {
         gameContext.deltaTime = deltaTime;
         level.update(gameContext);
-
-        camera.pos.x = Math.max(0, mario.pos.x - 100);
-
-        level.comp.draw(context, camera);
+        level.draw(gameContext);
     }
 
     timer.start();
