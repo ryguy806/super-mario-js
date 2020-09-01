@@ -16,7 +16,6 @@ async function main(canvas) {
         loadFont(),
     ]);
 
-
     const loadLevel = await createLevelLoader(entityFactory);
 
     const level = await loadLevel('1-2');
@@ -31,8 +30,8 @@ async function main(canvas) {
     level.comp.layers.push(createCollisionLayer(level));
     level.comp.layers.push(createDashboardLayer(font, level));
 
-    const input = setupKeyboard(mario);
-    input.listenTo(window);
+    const inputRouter = setupKeyboard(window);
+    inputRouter.addReceiver(mario);
 
     const gameContext = {
         audioContext,
