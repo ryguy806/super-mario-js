@@ -5,6 +5,7 @@ import MusicController from './MusicController.js';
 import EntityCollider from '../collision/EntityCollider.js';
 import TileCollider from '../collision/TileCollider.js';
 import { findPlayers } from '../libraries/player.js';
+import Scene from './Scene.js';
 
 function focusPlayer(level) {
     for (const player of findPlayers(level)) {
@@ -12,19 +13,19 @@ function focusPlayer(level) {
     }
 }
 
-export default class Level {
+export default class Level extends Scene {
     constructor() {
+        super();
+
         this.name = "";
 
         this.gravity = 1500;
         this.totalTime = 0;
 
         this.camera = new Camera();
-        this.events = new EventEmitter();
 
         this.music = new MusicController();
 
-        this.comp = new Compositor();
         this.entities = new Set();
 
         this.entityCollider = new EntityCollider(this.entities);
@@ -51,5 +52,9 @@ export default class Level {
         focusPlayer(this);
 
         this.totalTime += gameContext.deltaTime;
+    }
+
+    pause() {
+        this.music.pause();
     }
 }
