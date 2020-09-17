@@ -1,4 +1,4 @@
-import {Vec2} from './Vec2.js';
+import {Vec2} from '../libraries/math.js';
 
 export default class Camera {
     constructor() {

@@ -1,4 +1,4 @@
-import {Vec2} from './Vec2.js';
+import {Vec2} from '../libraries/math.js';
 import AudioBoard from './AudioBoard.js';
 import BoundingBox from '../libraries/entities/BoundingBox.js';
 import EventBuffer from './EventBuffer.js';

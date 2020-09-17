@@ -3,9 +3,9 @@ import Compositor from './Compositor.js';
 import EventEmitter from './EventEmitter.js';
 import MusicController from './MusicController.js';
 import EntityCollider from '../collision/EntityCollider.js';
+import Scene from './Scene.js';
 import TileCollider from '../collision/TileCollider.js';
 import { findPlayers } from '../libraries/player.js';
-import Scene from './Scene.js';
 
 function focusPlayer(level) {
     for (const player of findPlayers(level)) {
@@ -14,6 +14,8 @@ function focusPlayer(level) {
 }
 
 export default class Level extends Scene {
+    static EVENT_TRIGGER = Symbol('trigger');
+
     constructor() {
         super();
 

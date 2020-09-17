@@ -1,15 +1,16 @@
+import Level from './modules/Level.js';
 import Timer from './modules/Timer.js';
 import {createLevelLoader} from './libraries/loaders/level.js';
 import {loadFont} from './libraries/loaders/font.js';
 import {loadEntities} from './libraries/entities.js';
 import {createPlayer, createPlayerEnv} from './libraries/player.js';
 import {setupKeyboard} from './libraries/input.js';
+import {createColorLayer} from './libraries/layers/color.js';
 import {createCollisionLayer} from './libraries/layers/collision.js';
 import {createDashboardLayer} from './libraries/layers/dashboard.js';
-import {createPlayerProgressLayer} from './libraries/layers/player-progress.js';
-import CompositionScene from './modules/CompositionScene.js';
 import SceneRunner from './modules/SceneRunner.js';
-import createColorLayer from './libraries/layers/color.js';
+import { createPlayerProgressLayer } from './libraries/layers/player-progress.js';
+import CompositionScene from './modules/CompositionScene.js';
 
 async function main(canvas) {
     const videoContext = canvas.getContext('2d');
@@ -19,6 +20,7 @@ async function main(canvas) {
         loadEntities(audioContext),
         loadFont(),
     ]);
+
 
     const loadLevel = await createLevelLoader(entityFactory);
 
@@ -32,16 +34,29 @@ async function main(canvas) {
     async function runLevel(name) {
         const level = await loadLevel(name);
 
+        level.events.listen(Level.EVENT_TRIGGER, (spec, trigger, touches) => {
+            if (spec.type === "goto") {
+                for (const entity of touches) {
+                    if (entity.player) {
+                        runLevel(spec.name);
+                        return;
+                    }
+                }
+            }
+        });
+
         const playerProgressLayer = createPlayerProgressLayer(font, level);
         const dashboardLayer = createDashboardLayer(font, level);
 
+        mario.pos.set(0, 0);
         level.entities.add(mario);
 
         const playerEnv = createPlayerEnv(mario);
         level.entities.add(playerEnv);
 
         const waitScreen = new CompositionScene();
-        waitScreen.comp.layers.push(createColorLayer('#000'))
+        waitScreen.countDown = 2;
+        waitScreen.comp.layers.push(createColorLayer('#000'));
         waitScreen.comp.layers.push(dashboardLayer);
         waitScreen.comp.layers.push(playerProgressLayer);
         sceneRunner.addScene(waitScreen);
@@ -67,8 +82,8 @@ async function main(canvas) {
     }
 
     timer.start();
-    
-    window.runLevel = runLevel;
+
+    runLevel('debug-progression');
 }
 
 const canvas = document.getElementById('screen');

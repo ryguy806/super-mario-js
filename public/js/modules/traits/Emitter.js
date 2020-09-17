@@ -15,7 +15,7 @@ export default class Emitter extends Trait {
     }
 
     update(entity, gameContext, level) {
-        const {deltaTime} = gameContext; 
+        const {deltaTime} = gameContext;
         this.coolDown -= deltaTime;
         if (this.coolDown <= 0) {
             this.emit(entity, gameContext, level);

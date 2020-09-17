@@ -1,9 +1,9 @@
 import Keyboard from '../modules/KeyboardState.js';
-import InputRounter from '../modules/InputRounter.js';
+import InputRouter from '../modules/InputRouter.js';
 
 export function setupKeyboard(window) {
     const input = new Keyboard();
-    const router = new InputRounter();
+    const router = new InputRouter();
 
     input.listenTo(window);
 

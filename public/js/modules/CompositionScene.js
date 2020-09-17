@@ -8,7 +8,7 @@ export default class CompositionScene extends Scene {
 
     update(gameContext) {
         this.countDown -= gameContext.deltaTime;
-        if(this.countDown <=0) {
+        if (this.countDown <= 0) {
             this.events.emit(Scene.EVENT_COMPLETE);
         }
     }

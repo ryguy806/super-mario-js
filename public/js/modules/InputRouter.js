@@ -1,4 +1,4 @@
-export default class InputRounter {
+export default class InputRouter {
     constructor() {
         this.receivers = new Set();
     }
@@ -12,8 +12,8 @@ export default class InputRounter {
     }
 
     route(routeInput) {
-        for(const receiver of this.receivers) {
-            routeInput(receiver)
+        for (const receiver of this.receivers) {
+            routeInput(receiver);
         }
     }
 }

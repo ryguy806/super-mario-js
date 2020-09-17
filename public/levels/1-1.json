@@ -1,7 +1,7 @@
 {
     "spriteSheet": "overworld",
-    "musicSheet": "silent",
-    "patternSheet": "overworld-patterns",
+    "musicSheet": "overworld",
+    "patternSheet": "overworld-pattern",
 
     "layers": [
         {
@@ -39,6 +39,43 @@
                         [
                             157, 2,
                             13, 2
+                        ]
+                    ]
+                },
+                {
+                    "name": "ground",
+                    "type": "ground",
+                    "ranges": [
+                        [
+                            5, 3,
+                            9, 1
+                        ],
+                        [
+                            29, 5
+                        ],
+                        [
+                            5, 7,
+                            9
+                        ],
+                        [
+                            12, 6,
+                            11, 1
+                        ],
+                        [
+                            2, 1,
+                            11, 1
+                        ],
+                        [
+                            10, 2,
+                            10, 1
+                        ],
+                        [
+                            10, 2,
+                            10
+                        ],
+                        [
+                            9, 1,
+                            0, 7
                         ]
                     ]
                 }
@@ -195,11 +232,11 @@
         {
             "tiles": [
                 {
-                    "name": "coin",
-                    "type": "coin",
+                    "pattern": "cannon-2h",
                     "ranges": [
-                        [9, 10],
-                        [9, 11]
+                        [
+                            6, 7
+                        ]
                     ]
                 }
             ]
@@ -214,6 +251,18 @@
         {
             "name": "goomba",
             "pos": [220, 0]
+        },
+        {
+            "name": "cannon",
+            "pos": [96, 112]
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "goto",
+            "name": "1-2",
+            "pos": [64, 64]
         }
     ]
 }

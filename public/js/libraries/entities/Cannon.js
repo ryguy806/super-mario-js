@@ -14,7 +14,6 @@ export function loadCannon(audioContext) {
 
 function createCannonFactory(audio) {
 
-
     function emitBullet(cannon, gameContext, level) {
         let dir = 1;
         for (const player of findPlayers(level)) {

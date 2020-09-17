@@ -17,6 +17,6 @@ export default class Scene {
     }
 
     pause() {
-        console.log('Pause', this);
+        console.log("Pause", this);
     }
 }
