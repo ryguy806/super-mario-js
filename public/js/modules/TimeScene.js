@@ -1,6 +1,6 @@
 import Scene from './Scene.js';
 
-export default class CompositionScene extends Scene {
+export default class TimeScene extends Scene {
     constructor() {
         super();
         this.countDown = 2;
