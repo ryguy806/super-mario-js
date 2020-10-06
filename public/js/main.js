@@ -28,20 +28,17 @@ async function main(canvas) {
   const sceneRunner = new SceneRunner();
 
   const mario = createPlayer(entityFactory.mario());
+  window.mario = mario;
   mario.player.name = "MARIO";
   const inputRouter = setupKeyboard(window);
   inputRouter.addReceiver(mario);
 
   async function runLevel(name) {
-    console.log(('Loading', name));
-
     const loadScreen = new Scene();
     loadScreen.comp.layers.push(createColorLayer("#000"));
     loadScreen.comp.layers.push(createTextLayer(font, `Loading ${name}...`));
     sceneRunner.addScene(loadScreen);
     sceneRunner.runNext();
-
-    await new Promise(resolve => setTimeout(resolve, 1000))
 
     const level = await loadLevel(name);
 
