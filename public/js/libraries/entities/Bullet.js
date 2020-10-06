@@ -1,4 +1,5 @@
-import Entity, {Sides, Trait} from '../../modules/Entity.js';
+import Entity from '../../modules/Entity.js';
+import Trait from '../../modules/Trait.js';
 import Killable from '../../modules/traits/Killable.js';
 import Gravity from '../../modules/traits/Gravity.js';
 import Velocity from '../../modules/traits/Velocity.js';
